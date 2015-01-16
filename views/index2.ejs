@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
+  </head>
+  <body ng-app="conditionsApp">
+  	<div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <ui-view></ui-view>
+      </div>
+    </div>
+
+    <script type="text/ng-template" id="/home.html">
+      <div class="page-header">
+	      <h1><%= title %></h1>
+	    </div>
+
+      <span style="font-size:15px; margin-left:10px;">
+	      <p>Welcome to <%= title %> showing patiens from the {{ fhirBase }} FHIR Test Server</p>
+	      <p>Select one of {{patients.length}} patients:</p>
+      </span>
+
+	    <div ng-repeat="pt in patients">
+        <a href="#/conditions/{{pt.id | stripId}}">
+          <span style="font-size:15px; margin-left:10px;">
+            {{pt.content.name[0].family[0]}}, {{pt.content.name[0].given[0]}}
+          </span>
+        </a>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="/conditions.html">
+      <div class="page-header">
+        <h1>Conditions for {{patient.name[0].family[0]}}, {{patient.name[0].given[0]}}</h1>
+      </div>
+      {{patient}}
+    </script>
+
+  </body>
+</html>
